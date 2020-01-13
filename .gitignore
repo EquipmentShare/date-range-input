@@ -1,0 +1,6 @@
+node_modules
+
+bundle.*
+custom-element.*
+public/build
+src/css

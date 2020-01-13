@@ -1,0 +1,50 @@
+{
+  "name": "@equipmentshare/date-range-input",
+  "description": "The browser's native time input, with a fallback to a reasonable text input for Safari",
+  "version": "1.2.6",
+  "engines": {
+    "node": ">=13"
+  },
+  "type": "module",
+  "main": "./bundle.js",
+  "svelte": "src/TimeInput.svelte",
+  "homepage": "https://gitlab.internal.equipmentshare.com/time-tracking/date-range-input",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.internal.equipmentshare.com:time-tracking/date-range-input.git"
+  },
+  "scripts": {
+    "pre-build": "foundation --targetDirectory=src/css",
+    "build": "npm-run-all --print-label pre-build --parallel build:*",
+    "build:js": "rollup -c",
+    "build:ce": "cross-env OUTPUT=custom-element rollup -c",
+    "dev:serve": "live-server public",
+    "dev:watch:js": "npm run build:js -- -w",
+    "dev:watch:ce": "cross-env OUTPUT=custom-element npm run build:js -- -w",
+    "dev": "npm-run-all --print-label pre-build --parallel dev:**",
+    "autoformat": "eslint rollup.config.js src/ --fix --ext .js,.svelte",
+    "lint": "eslint rollup.config.js src/ --ext .js,.svelte",
+    "test": "glob-module-file --pattern=\"src/**/*.test.js\" --importStar --format=es | node --input-type=module"
+  },
+  "devDependencies": {
+    "@equipmentshare/es-foundation": "^5.0.1",
+    "@equipmentshare/eslint-config-es-base-js": "0.0.6",
+    "cpy-cli": "^2.0.0",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-svelte3": "^2.7.3",
+    "glob-module-file": "^3.0.1",
+    "live-server": "^1.2.1",
+    "npm-run-all": "^4.1.5",
+    "postcss-import": "^12.0.1",
+    "rollup": "^1.12.0",
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-svelte": "^5.0.3",
+    "svelte": "^3.0.0",
+    "svelte-preprocess-postcss": "^1.1.1",
+    "zora": "^3.1.8"
+  },
+  "dependencies": {}
+}
