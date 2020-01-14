@@ -1,4 +1,4 @@
-{
+module.exports = {
 	"env": {
 		"browser": true,
 		"node": true,
@@ -28,5 +28,11 @@
 			"tab"
 		],
 		"no-sparse-arrays": 0
+	},
+	settings: {
+		'svelte3/ignore-warnings': warning => {
+			return warning.code === "missing-custom-element-compile-options"
+		}
 	}
 }
+

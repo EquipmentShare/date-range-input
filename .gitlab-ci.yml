@@ -1,5 +1,6 @@
 stages:
   - test
+  - pages
 
 test:
   stage: test
@@ -7,3 +8,14 @@ test:
     - npm ci
   script:
     - npm run lint
+
+pages:
+  stage: pages
+  script:
+    - npm ci
+    - npm run build-dev
+  artifacts:
+    paths:
+    - public
+  only:
+    - master

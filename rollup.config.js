@@ -14,7 +14,7 @@ const stylePreprocessor = sveltePreprocessPostcss({
 })
 
 const customElement = process.env.OUTPUT === "custom-element"
-const devMode = !!process.env.ROLLUP_WATCH
+const devMode = !!process.env.ROLLUP_WATCH || process.env.TARGET === 'test-app'
 const testApp = devMode && !customElement
 
 const outputFileName = customElement
@@ -40,7 +40,14 @@ const componentConfig = {
 				style: stylePreprocessor,
 			},
 			customElement,
-			tag: "time-input",
+			tag: "date-range-input",
+			onwarn: (warning, handler) => {
+				if (warning.code === "missing-custom-element-compile-options") {
+					return
+				}
+
+				handler(warning)
+			}
 		}),
 		resolve({
 			browser: true,
@@ -58,7 +65,7 @@ const testAppConfig = {
 	output: {
 		sourcemap: true,
 		format: "iife",
-		name: "TimeInputTestApp",
+		name: "DateRangeInputTestApp",
 		file: outputPath,
 	},
 	external: [],
