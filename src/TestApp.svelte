@@ -2,13 +2,11 @@
 
 <script>
 	import DateRangeInput from './DateRangeInput.svelte'
-	import Month from "./Month.svelte"
-	let startDate = '2019-12-17'
-	let endDate = '2020-01-07'
 
-	wat = 'okay'
+	const pad2 = number => number >= 10 ? number.toString() : `0${number}`
+	const toIsoDate = date => `${date.year}-${pad2(date.month)}-${pad2(date.day)}`
 
-	const displayMonths = new Array(12).fill(null).map((_, i) => i + 1)
+	let changes = []
 </script>
 
 <style>
@@ -23,6 +21,18 @@
 	<DateRangeInput
 		start={ { year: 2020, month: 1, day: 10 } }
 		end={ { year: 2020, month: 3, day: 20 } }
+		on:change={ ({ detail: range }) => changes = [...changes, range] }
 	>
 	</DateRangeInput>
+	<hr>
+	<label>
+		Changes
+		<ol>
+			{#each changes as change}
+				<li>
+					Changed to start: {toIsoDate(change.start)}, end: {toIsoDate(change.end)}
+				</li>
+			{/each}
+		</ol>
+	</label>
 </div>
