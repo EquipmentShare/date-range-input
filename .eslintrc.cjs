@@ -29,7 +29,8 @@ module.exports = {
 		],
 		"no-sparse-arrays": 0,
 		"no-param-reassign": 0,
-		"no-unused-vars": "warn"
+		"no-unused-vars": "warn",
+		"no-unused-expressions": 0,
 	},
 	settings: {
 		'svelte3/ignore-warnings': warning => {
