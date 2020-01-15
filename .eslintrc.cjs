@@ -27,7 +27,8 @@ module.exports = {
 			"warn",
 			"tab"
 		],
-		"no-sparse-arrays": 0
+		"no-sparse-arrays": 0,
+		"no-param-reassign": 0,
 	},
 	settings: {
 		'svelte3/ignore-warnings': warning => {
