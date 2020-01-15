@@ -14,7 +14,7 @@ const stylePreprocessor = sveltePreprocessPostcss({
 })
 
 const customElement = process.env.OUTPUT === "custom-element"
-const devMode = !!process.env.ROLLUP_WATCH || process.env.TARGET === 'test-app'
+const devMode = !!process.env.ROLLUP_WATCH || process.env.ENVIRONMENT === 'dev'
 const testApp = devMode && !customElement
 
 const outputFileName = customElement

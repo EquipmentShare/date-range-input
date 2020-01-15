@@ -18,6 +18,7 @@
     "build": "npm-run-all --print-label pre-build --parallel build:*",
     "build:js": "rollup -c",
     "build:ce": "cross-env OUTPUT=custom-element rollup -c",
+    "build-dev": "cross-env ENVIRONMENT=dev npm run build",
     "dev:serve": "live-server public",
     "dev:watch:js": "npm run build:js -- -w",
     "dev:watch:ce": "cross-env OUTPUT=custom-element npm run build:js -- -w",
