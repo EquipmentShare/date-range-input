@@ -1,5 +1,8 @@
+<svelte:window on:mouseup={onMouseup}></svelte:window>
+
 <script>
 	import Month from './Month.svelte'
+	import { datesMatch, dateLte } from './date-object.js'
 
 	export let start = {
 		year: 2020,
@@ -13,10 +16,76 @@
 		day: 15
 	}
 
-	let mouseOverDate = null
-
 	let startMouseDown = null
 	let endMouseDown = null
+
+	let mouseoverDate = null
+
+	let visibleStartMonth = {
+		year: start.year,
+		month: start.month,
+	}
+
+	let visibleEndMonth = {
+		year: end.year,
+		month: end.month,
+	}
+
+	const datesAsRange = (dateA, dateB) => {
+		if (dateLte(dateA, dateB)) {
+			return {
+				start: dateA,
+				end: dateB
+			}
+		} else {
+			return {
+				start: dateB,
+				end: dateA
+			}
+		}
+	}
+
+	const getDisplayRange = ({
+		start,
+		end,
+		startMouseDown,
+		endMouseDown,
+		mouseoverDate
+	}) => {
+		if (startMouseDown) {
+			start = startMouseDown
+			if (mouseoverDate && !datesMatch(mouseoverDate, start)) {
+				end = mouseoverDate
+			}
+		} else if (endMouseDown) {
+			end = endMouseDown
+			if (mouseoverDate && !datesMatch(mouseoverDate, end)) {
+				start = mouseoverDate
+			}
+		}
+
+		return datesAsRange(start, end)
+	}
+
+	$: displayRange = getDisplayRange({ start, end, startMouseDown, endMouseDown, mouseoverDate })
+
+	const onMouseup = () => {
+		startMouseDown = null
+		endMouseDown = null
+	}
+
+	const onMouseoverDate = ({ detail: date }) => {
+		if (startMouseDown || endMouseDown) {
+			mouseoverDate = date
+		}
+	}
+
+	const onMouseupDate = () => {
+		if (startMouseDown || endMouseDown) {
+			start = displayRange.start
+			end = displayRange.end
+		}
+	}
 </script>
 
 <style>
@@ -33,44 +102,32 @@
 
 <div class="container">
 	<Month
-		bind:primary={start}
-		secondary={endMouseDown || end}
-		bind:mouseDownDate={startMouseDown}
-		bind:mouseOverDate
+		start={displayRange.start}
+		end={displayRange.end}
+
+		on:mousedownDate={({ detail: date }) => mouseoverDate = startMouseDown = date}
+		on:mouseoverDate={onMouseoverDate}
+		on:mouseupDate={onMouseupDate}
+		on:daySelected={({ detail: date }) => {
+			onMouseup()
+			start = date
+		}}
+
+		bind:visibleMonth={visibleStartMonth}
 	></Month>
 	<span class="hspace"></span>
 	<Month
-		bind:primary={end}
-		secondary={startMouseDown || start}
-		bind:mouseDownDate={endMouseDown}
-		bind:mouseOverDate
+		start={displayRange.start}
+		end={displayRange.end}
+
+		on:mousedownDate={({ detail: date }) => mouseoverDate = endMouseDown = date}
+		on:mouseoverDate={onMouseoverDate}
+		on:mouseupDate={onMouseupDate}
+		on:daySelected={({ detail: date }) => {
+			onMouseup()
+			end = date
+		}}
+
+		bind:visibleMonth={visibleEndMonth}
 	></Month>
 </div>
-
-<!--
-	pass in "start" and "end" dates instead of primary and secondary
-	months switch to emitting clicks/date changes, and exposing mouse/touch interaction state
-	months allow binding a visible year+month
-
-	DateRangeInput becomes responsible for assigning behavior on clicks/date changes
-
-
-
-
-
-	-----------------------------------
-	months need to be able to represent a range all by themselves.
-
-	months need to know
-		- whether the start or the end of the range should be colored with the primary color
-		- whether the start or the end of the range should be changed on single-click
-		- whether the start or the end of the range should be used to pick the initial display month
-	a month registers a "change" on mouseup
-
-	on mousedown:
-		- UI needs to reflect the clicked date as a selected/secondary day
-		- if the mouse is over the clicked date, show the range the original "other" date
-		- if the mouse is over a different date, show the range towards that date
-
-	when a month registers a change, the range picker needs to validate the other side of the range
--->

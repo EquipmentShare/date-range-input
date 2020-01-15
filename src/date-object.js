@@ -12,10 +12,9 @@ export const dateGt = (a, b) => {
 	}
 }
 
-export const dateLt = (a, b) => {
-	return !dateGt(a, b) && !datesMatch(a, b)
-}
-
-export const dateLte = (a, b) => !dateGt(a, b)
-
 export const dateGte = (a, b) => dateGt(a, b) || datesMatch(a, b)
+
+export const dateLt = (a, b) => !dateGte(a, b)
+
+export const dateLte = (a, b) => dateLt(a, b) || datesMatch(a, b)
+

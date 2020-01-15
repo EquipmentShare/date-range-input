@@ -1,5 +1,4 @@
-<svelte:options tag="x-month"></svelte:options>
-<svelte:window on:mouseup={() => mouseDownDate = null}></svelte:window>
+<svelte:options tag="date-range-input-month"></svelte:options>
 
 <script>
 	import getMonthName from './get-month-name.js'
@@ -7,61 +6,59 @@
 	import getMonthDaysArrays from './get-month-days-arrays.js'
 	import { datesMatch, dateGte, dateLte, dateGt, dateLt } from './date-object.js'
 
-	export let primary = {
+	import { createEventDispatcher } from 'svelte'
+	const dispatchEvent = createEventDispatcher()
+
+	export let start = {
 		year: 2020,
 		month: 1,
 		day: 15
 	}
 
-	export let secondary = {
+	export let end = {
 		year: 2020,
 		month: 2,
 		day: 15
 	}
 
-	$: visibleMonth = primary.month
-	$: visibleYear = primary.year
-	$: visibleWeeks = getMonthDaysArrays(visibleYear, visibleMonth).map(
+	export let visibleMonth = {
+		year: 2020,
+		month: 1
+	}
+
+	$: visibleWeeks = getMonthDaysArrays(visibleMonth.year, visibleMonth.month).map(
 		weeks => weeks.map(
 			dayNumber => dayNumber ? dayAsVisibleDate(dayNumber) : null
 		)
 	)
 
-	export let mouseDownDate = null
-	export let mouseOverDate = null
-
-	$: console.log('secondary', secondary)
-
-	$: visiblePrimary = mouseDownDate || primary
-	$: visibleSecondary = (mouseDownDate && mouseOverDate && !datesMatch(mouseDownDate, mouseOverDate))
-		? mouseOverDate
-		: secondary
-
-	$: visiblySelectedDates = dateLte(visiblePrimary, visibleSecondary)
-		? { first: visiblePrimary, last: visibleSecondary }
-		: { first: visibleSecondary, last: visiblePrimary }
-
 	$: dateIsVisiblySelected = (date) => {
-		return datesMatch(date, visiblySelectedDates.first)
-			|| datesMatch(date, visiblySelectedDates.last)
+		return datesMatch(date, start)
+			|| datesMatch(date, end)
 	}
 	const daysOfTheWeek = getDaysOfTheWeek()
 
 	const switchMonth = (increment) => {
-		visibleMonth += increment
+		let year = visibleMonth.year
+		let month = visibleMonth.month + increment
 
-		if (visibleMonth < 1) {
-			visibleMonth += 12
-			visibleYear -= 1
-		} else if (visibleMonth > 12) {
-			visibleMonth -= 12
-			visibleYear += 1
+		if (month < 1) {
+			month += 12
+			year -= 1
+		} else if (month > 12) {
+			month -= 12
+			year += 1
+		}
+
+		visibleMonth = {
+			year,
+			month,
 		}
 	}
 
 	const dayAsVisibleDate = day => ({
-		year: visibleYear,
-		month: visibleMonth,
+		year: visibleMonth.year,
+		month: visibleMonth.month,
 		day,
 	})
 
@@ -144,7 +141,7 @@
 
 	.day-color {
 		width: 100%;
-		height: 85%;
+		height: calc(var(--day-width) * .85);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -164,7 +161,7 @@
 <div class="container full-width">
 	<div class="full-width month-row">
 		<span>
-			{getMonthName(visibleMonth)} {visibleYear}
+			{getMonthName(visibleMonth.month)} {visibleMonth.year}
 		</span>
 		<span style="display: flex;">
 			<button type=button on:click={() => switchMonth(-1)}>
@@ -198,14 +195,15 @@
 								type=button
 								draggable=false
 								data-selected={dateIsVisiblySelected(visibleDate)}
-								on:click={() => primary = visibleDate}
-								on:mousedown={() => mouseDownDate = visibleDate}
-								on:mouseover={() => mouseOverDate = visibleDate}
+								on:click={() => dispatchEvent('daySelected', visibleDate)}
+								on:mousedown={() => dispatchEvent('mousedownDate', visibleDate)}
+								on:mouseover={() => dispatchEvent('mouseoverDate', visibleDate)}
+								on:mouseup={() => dispatchEvent('mouseupDate', visibleDate)}
 							>
 								<span
 									class="day-color"
-									data-range-left={dateLte(visibleDate, visiblySelectedDates.last) && dateGt(visibleDate, visiblySelectedDates.first)}
-									data-range-right={dateGte(visibleDate, visiblySelectedDates.first) && dateLt(visibleDate, visiblySelectedDates.last)}
+									data-range-left={dateLte(visibleDate, end) && dateGt(visibleDate, start)}
+									data-range-right={dateGte(visibleDate, start) && dateLt(visibleDate, end)}
 								>
 									{visibleDate.day}
 								</span>
