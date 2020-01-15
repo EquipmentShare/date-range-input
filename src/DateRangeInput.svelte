@@ -1,8 +1,18 @@
-<svelte:window on:mouseup={onMouseup}></svelte:window>
+<svelte:window on:mouseup={clearAnyMouseDown}></svelte:window>
 
 <script>
 	import Month from './Month.svelte'
 	import { datesMatch, dateLte } from './date-object.js'
+	import { createEventDispatcher } from "svelte"
+	import { get_current_component } from "svelte/internal"
+
+	// see https://github.com/sveltejs/svelte/issues/3119
+	const component = get_current_component()
+	const svelteDispatch = createEventDispatcher()
+	const dispatch = (name, detail) => {
+		svelteDispatch(name, detail)
+		component.dispatchEvent && component.dispatchEvent(new CustomEvent(name, { detail }))
+	}
 
 	export let start = {
 		year: 2020,
@@ -15,6 +25,8 @@
 		month: 2,
 		day: 15
 	}
+
+	$: dispatch('change', { start, end })
 
 	let startMouseDown = null
 	let endMouseDown = null
@@ -69,7 +81,7 @@
 
 	$: displayRange = getDisplayRange({ start, end, startMouseDown, endMouseDown, mouseoverDate })
 
-	const onMouseup = () => {
+	const clearAnyMouseDown = () => {
 		startMouseDown = null
 		endMouseDown = null
 	}
@@ -80,10 +92,28 @@
 		}
 	}
 
+	const displayDateMatchesCurrentValues = () => datesMatch(displayRange.start, start)
+		&& datesMatch(displayRange.end, end)
+
 	const onMouseupDate = () => {
-		if (startMouseDown || endMouseDown) {
+		const mouseWasDown = startMouseDown || endMouseDown
+		if (mouseWasDown && !displayDateMatchesCurrentValues()) {
 			start = displayRange.start
 			end = displayRange.end
+		}
+	}
+
+	const onStartDaySelected = ({ detail: date }) => {
+		clearAnyMouseDown()
+		if (!datesMatch(date, start)) {
+			start = date
+		}
+	}
+
+	const onEndDaySelected = ({ detail: date }) => {
+		clearAnyMouseDown()
+		if (!datesMatch(date, end)) {
+			end = date
 		}
 	}
 </script>
@@ -108,10 +138,7 @@
 		on:mousedownDate={({ detail: date }) => mouseoverDate = startMouseDown = date}
 		on:mouseoverDate={onMouseoverDate}
 		on:mouseupDate={onMouseupDate}
-		on:daySelected={({ detail: date }) => {
-			onMouseup()
-			start = date
-		}}
+		on:daySelected={onStartDaySelected}
 
 		bind:visibleMonth={visibleStartMonth}
 	></Month>
@@ -123,10 +150,7 @@
 		on:mousedownDate={({ detail: date }) => mouseoverDate = endMouseDown = date}
 		on:mouseoverDate={onMouseoverDate}
 		on:mouseupDate={onMouseupDate}
-		on:daySelected={({ detail: date }) => {
-			onMouseup()
-			end = date
-		}}
+		on:daySelected={onEndDaySelected}
 
 		bind:visibleMonth={visibleEndMonth}
 	></Month>
