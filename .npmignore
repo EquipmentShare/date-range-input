@@ -1,3 +1,5 @@
 public
 src/css
 rollup.*
+*.gif
+*.test.js
