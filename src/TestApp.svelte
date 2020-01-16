@@ -3,7 +3,7 @@
 <script>
 	import DateRangeInput from './DateRangeInput.svelte'
 
-	const pad2 = number => number >= 10 ? number.toString() : `0${number}`
+	const pad2 = number => number.toString().padStart(2, '0')
 	const toIsoDate = date => `${date.year}-${pad2(date.month)}-${pad2(date.day)}`
 
 	let changes = []
@@ -16,11 +16,9 @@
 </style>
 
 <div class="page">
-	<h1>Day Tripper</h1>
-
 	<DateRangeInput
 		start={ { year: 2020, month: 1, day: 10 } }
-		end={ { year: 2020, month: 3, day: 20 } }
+		end={ { year: 2020, month: 2, day: 20 } }
 		on:change={ ({ detail: range }) => changes = [...changes, range] }
 	>
 	</DateRangeInput>
