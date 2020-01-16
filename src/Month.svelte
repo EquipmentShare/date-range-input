@@ -146,6 +146,14 @@
 		color: var(--color-theme-offwhite);
 	}
 
+	button:focus {
+		box-shadow: 0 0 0 calc(var(--size-base) / 8 ) var(--color-theme-gray-lightest);
+		outline: none;
+	}
+	button::-moz-focus-inner {
+		border: 0;
+	}
+
 	.day-color {
 		width: 100%;
 		height: calc(var(--day-width) * .85);
