@@ -123,19 +123,6 @@
 	}
 </script>
 
-<style>
-	@import "./css/reset.css";
-	@import "./css/size.css";
-
-	.container {
-		display: flex;
-	}
-
-	.hspace {
-		width: var(--size-base);
-	}
-</style>
-
 <div class="container">
 	<Month
 		start={displayRange.start}
@@ -161,3 +148,16 @@
 		bind:visibleMonth={visibleEndMonth}
 	></Month>
 </div>
+
+<style>
+	@import "./css/reset.css";
+	@import "./css/size.css";
+
+	.container {
+		display: flex;
+	}
+
+	.hspace {
+		width: var(--size-base);
+	}
+</style>

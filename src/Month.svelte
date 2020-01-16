@@ -71,6 +71,70 @@
 
 </script>
 
+<div class="container full-width">
+	<div class="full-width month-row">
+		<span>
+			{getMonthName(visibleMonth.month)} {visibleMonth.year}
+		</span>
+		<span style="display: flex;">
+			<button type=button on:click={() => switchMonth(-1)}>
+				❮
+			</button>
+			<button type=button on:click={() => switchMonth(1)}>
+				❯
+			</button>
+		</span>
+	</div>
+	<div class="full-width weekday-names">
+		{#each daysOfTheWeek as dayOfTheWeek}
+			<span class=weekday-name>
+				{dayOfTheWeek}
+			</span>
+		{/each}
+	</div>
+	<div class="full-width weeks">
+		{#each visibleWeeks as week}
+			<div class="week">
+				{#each week as visibleDate}
+					{#if visibleDate === null}
+						<span class=day>
+
+						</span>
+					{:else}
+						<span
+							class=day
+						>
+							<button
+								type=button
+								draggable=false
+								data-selected={dateIsVisiblySelected(visibleDate)}
+								on:click={ifMouseEventShouldBeReactedTo(
+									() => dispatchEvent('daySelected', visibleDate)
+								)}
+								on:mouseover={ifMouseEventShouldBeReactedTo(
+									() => dispatchEvent('mouseoverDate', visibleDate)
+								)}
+								on:mousedown={ifMouseEventShouldBeReactedTo(
+									() => dispatchEvent('mousedownDate', visibleDate)
+								)}
+								on:mouseup={() => dispatchEvent('mouseupDate', visibleDate)}
+							>
+								<span
+									class="day-color make-the-background-square-on-safari"
+									data-range-left={dateLte(visibleDate, end) && dateGt(visibleDate, start)}
+									data-range-right={dateGte(visibleDate, start) && dateLt(visibleDate, end)}
+								>
+									{visibleDate.day}
+								</span>
+							</button>
+						</span>
+					{/if}
+				{/each}
+			</div>
+		{/each}
+	</div>
+</div>
+
 <style>
 	@import './css/tokens/size.css';
 	@import './css/tokens/text.css';
@@ -176,67 +240,3 @@
 		position: relative;
 	}
 </style>
-
-<div class="container full-width">
-	<div class="full-width month-row">
-		<span>
-			{getMonthName(visibleMonth.month)} {visibleMonth.year}
-		</span>
-		<span style="display: flex;">
-			<button type=button on:click={() => switchMonth(-1)}>
-				❮
-			</button>
-			<button type=button on:click={() => switchMonth(1)}>
-				❯
-			</button>
-		</span>
-	</div>
-	<div class="full-width weekday-names">
-		{#each daysOfTheWeek as dayOfTheWeek}
-			<span class=weekday-name>
-				{dayOfTheWeek}
-			</span>
-		{/each}
-	</div>
-	<div class="full-width weeks">
-		{#each visibleWeeks as week}
-			<div class="week">
-				{#each week as visibleDate}
-					{#if visibleDate === null}
-						<span class=day>
-
-						</span>
-					{:else}
-						<span
-							class=day
-						>
-							<button
-								type=button
-								draggable=false
-								data-selected={dateIsVisiblySelected(visibleDate)}
-								on:click={ifMouseEventShouldBeReactedTo(
-									() => dispatchEvent('daySelected', visibleDate)
-								)}
-								on:mouseover={ifMouseEventShouldBeReactedTo(
-									() => dispatchEvent('mouseoverDate', visibleDate)
-								)}
-								on:mousedown={ifMouseEventShouldBeReactedTo(
-									() => dispatchEvent('mousedownDate', visibleDate)
-								)}
-								on:mouseup={() => dispatchEvent('mouseupDate', visibleDate)}
-							>
-								<span
-									class="day-color make-the-background-square-on-safari"
-									data-range-left={dateLte(visibleDate, end) && dateGt(visibleDate, start)}
-									data-range-right={dateGte(visibleDate, start) && dateLt(visibleDate, end)}
-								>
-									{visibleDate.day}
-								</span>
-							</button>
-						</span>
-					{/if}
-				{/each}
-			</div>
-		{/each}
-	</div>
-</div>
