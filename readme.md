@@ -1,6 +1,6 @@
 # date-range-input
 
-Allows users to select a date range
+A user interface for inputting date ranges.
 
 **[Demo](http://time-tracking.pages.internal.equipmentshare.com/date-range-input/)**
 
