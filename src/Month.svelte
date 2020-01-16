@@ -163,6 +163,10 @@
 	[data-range-right=true][data-range-left=true] {
 		background: rgba(0,173,238,0.2);
 	}
+
+	.make-the-background-square-on-safari {
+		position: relative;
+	}
 </style>
 
 <div class="container full-width">
@@ -214,7 +218,7 @@
 								on:mouseup={() => dispatchEvent('mouseupDate', visibleDate)}
 							>
 								<span
-									class="day-color"
+									class="day-color make-the-background-square-on-safari"
 									data-range-left={dateLte(visibleDate, end) && dateGt(visibleDate, start)}
 									data-range-right={dateGte(visibleDate, start) && dateLt(visibleDate, end)}
 								>
