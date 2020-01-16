@@ -2,6 +2,8 @@
 
 Allows users to select a date range
 
+**[Demo](http://time-tracking.pages.internal.equipmentshare.com/date-range-input/)**
+
 ## Install
 
 ```sh
