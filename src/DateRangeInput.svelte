@@ -125,13 +125,14 @@
 
 <style>
 	@import "./css/reset.css";
+	@import "./css/size.css";
 
 	.container {
 		display: flex;
 	}
 
 	.hspace {
-		width: 16px;
+		width: var(--size-base);
 	}
 </style>
 
