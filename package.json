@@ -30,6 +30,7 @@
   "devDependencies": {
     "@equipmentshare/es-foundation": "^5.0.1",
     "@equipmentshare/eslint-config-es-base-js": "^1.0.0",
+    "click-should-be-intercepted-for-navigation": "^1.0.0",
     "cpy-cli": "^2.0.0",
     "cross-env": "^6.0.3",
     "eslint": "^6.8.0",

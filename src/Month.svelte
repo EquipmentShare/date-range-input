@@ -5,6 +5,7 @@
 	import getDaysOfTheWeek from './get-days-of-the-week.js'
 	import getMonthDaysArrays from './get-month-days-arrays.js'
 	import { datesMatch, dateGte, dateLte, dateGt, dateLt } from './date-object.js'
+	import mouseEventShouldBeReactedTo from 'click-should-be-intercepted-for-navigation'
 
 	import { createEventDispatcher } from 'svelte'
 	const dispatchEvent = createEventDispatcher()
@@ -61,6 +62,12 @@
 		month: visibleMonth.month,
 		day,
 	})
+
+	const ifMouseEventShouldBeReactedTo = thenDo => event => {
+		if (mouseEventShouldBeReactedTo(event)) {
+			thenDo(event)
+		}
+	}
 
 </script>
 
@@ -195,9 +202,15 @@
 								type=button
 								draggable=false
 								data-selected={dateIsVisiblySelected(visibleDate)}
-								on:click={() => dispatchEvent('daySelected', visibleDate)}
-								on:mousedown={() => dispatchEvent('mousedownDate', visibleDate)}
-								on:mouseover={() => dispatchEvent('mouseoverDate', visibleDate)}
+								on:click={ifMouseEventShouldBeReactedTo(
+									() => dispatchEvent('daySelected', visibleDate)
+								)}
+								on:mouseover={ifMouseEventShouldBeReactedTo(
+									() => dispatchEvent('mouseoverDate', visibleDate)
+								)}
+								on:mousedown={ifMouseEventShouldBeReactedTo(
+									() => dispatchEvent('mousedownDate', visibleDate)
+								)}
 								on:mouseup={() => dispatchEvent('mouseupDate', visibleDate)}
 							>
 								<span
