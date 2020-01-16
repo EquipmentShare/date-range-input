@@ -82,8 +82,7 @@
 	$: displayRange = getDisplayRange({ start, end, startMouseDown, endMouseDown, mouseoverDate })
 
 	const clearAnyMouseDown = () => {
-		startMouseDown = null
-		endMouseDown = null
+		startMouseDown = endMouseDown = null
 	}
 
 	const onMouseoverDate = ({ detail: date }) => {
