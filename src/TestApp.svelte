@@ -18,7 +18,8 @@
 <div class="page">
 	<DateRangeInput
 		start={ { year: 2020, month: 1, day: 10 } }
-		end={ { year: 2020, month: 2, day: 20 } }
+		end={ { year: 2020, month: 1, day: 20 } }
+		visibleEndMonth={ { year: 2020, month: 2 } }
 		on:change={ ({ detail: range }) => changes = [...changes, range] }
 	>
 	</DateRangeInput>

@@ -20,6 +20,20 @@ import DateRangeInput from '@equipmentshare/date-range-input'
 const dateRangeInput = new DateRangeInput({
 	target: document.querySelector('div.date-range-input'),
 	props: {
+		start: {
+			year: 2020,
+			month: 1,
+			day: 5,
+		},
+		end: {
+			year: 2020,
+			month: 1,
+			day: 18,
+		},
+		visibleEndMonth: {
+			year: 2020,
+			month: 2
+		}
 	}
 })
 

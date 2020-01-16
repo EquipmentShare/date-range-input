@@ -33,12 +33,12 @@
 
 	let mouseoverDate = null
 
-	let visibleStartMonth = {
+	export let visibleStartMonth = {
 		year: start.year,
 		month: start.month,
 	}
 
-	let visibleEndMonth = {
+	export let visibleEndMonth = {
 		year: end.year,
 		month: end.month,
 	}
@@ -151,7 +151,7 @@
 
 <style>
 	@import "./css/reset.css";
-	@import "./css/size.css";
+	@import "./css/tokens/size.css";
 
 	.container {
 		display: flex;
