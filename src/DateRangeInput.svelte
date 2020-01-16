@@ -2,7 +2,7 @@
 
 <script>
 	import Month from './Month.svelte'
-	import { datesMatch, dateLte } from './date-object.js'
+	import { datesMatch, dateLt, dateLte, dateGt } from './date-object.js'
 	import { createEventDispatcher } from "svelte"
 	import { get_current_component } from "svelte/internal"
 
@@ -92,12 +92,12 @@
 		}
 	}
 
-	const displayDateMatchesCurrentValues = () => datesMatch(displayRange.start, start)
-		&& datesMatch(displayRange.end, end)
-
-	const onMouseupDate = () => {
+	const onMouseupDate = ({ detail: date }) => {
 		const mouseWasDown = startMouseDown || endMouseDown
-		if (mouseWasDown && !displayDateMatchesCurrentValues()) {
+		const wasAClickOnStart = startMouseDown && datesMatch(date, startMouseDown)
+		const wasAClickOnEnd = endMouseDown && datesMatch(date, endMouseDown)
+
+		if (mouseWasDown && !wasAClickOnStart && !wasAClickOnEnd) {
 			start = displayRange.start
 			end = displayRange.end
 		}
@@ -105,14 +105,20 @@
 
 	const onStartDaySelected = ({ detail: date }) => {
 		clearAnyMouseDown()
-		if (!datesMatch(date, start)) {
+		if (dateGt(date, end)) {
+			start = end
+			end = date
+		} else if (!datesMatch(date, start)) {
 			start = date
 		}
 	}
 
 	const onEndDaySelected = ({ detail: date }) => {
 		clearAnyMouseDown()
-		if (!datesMatch(date, end)) {
+		if (dateLt(date, start)) {
+			end = start
+			start = date
+		} else if (!datesMatch(date, end)) {
 			end = date
 		}
 	}
