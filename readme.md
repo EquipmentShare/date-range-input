@@ -72,3 +72,9 @@ npm run dev
 ```
 
 Edit `src/TestApp.svelte` to play with the component.
+
+## To consider
+
+A couple folks have said that they expected different behavior when they started a click-and-drag on an existing end-point.
+
+If this continues, we may want to experiment with different behavior when a drag starts on a current end-point – probably making it drag that end-point around, as opposed to the normal behavior of starting a new range selection
