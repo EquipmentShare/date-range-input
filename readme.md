@@ -48,19 +48,6 @@ const dateRangeInput = new DateRangeInput({
 dateRangeInput.$on('change', event => console.log(event.detail))
 ```
 
-### As a custom element
-
-```js
-import '@equipmentshare/date-range-input/custom-element'
-```
-
-```html
-<date-range-input
-
->
-</date-range-input>
-```
-
 ### As a Svelte component
 
 ```html
