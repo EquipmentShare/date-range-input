@@ -4,15 +4,8 @@
 	import Month from './Month.svelte'
 	import { datesMatch, dateLt, dateLte, dateGt } from './date-object.js'
 	import { createEventDispatcher } from "svelte"
-	import { get_current_component } from "svelte/internal"
 
-	// see https://github.com/sveltejs/svelte/issues/3119
-	const component = get_current_component()
-	const svelteDispatch = createEventDispatcher()
-	const dispatch = (name, detail) => {
-		svelteDispatch(name, detail)
-		component.dispatchEvent && component.dispatchEvent(new CustomEvent(name, { detail }))
-	}
+	const dispatch = createEventDispatcher()
 
 	export let start = {
 		year: 2020,
