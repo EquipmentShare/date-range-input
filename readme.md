@@ -20,6 +20,8 @@ The date range input takes these properties.
 
 `visibleStartMonth` and `visibleEndMonth` are optional, for if you want to manually specify which month should be displayed in each calendar.  They are an object with the numeric properties `year` and `month`.
 
+The component emits a `change` event with a `detail` property that is an object with `start` and `end` properties.  Both dates are objects with `year`/`month`/`day` properties.
+
 ### As vanilla JS
 
 ```js
