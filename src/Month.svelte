@@ -3,7 +3,7 @@
 <script>
 	import getMonthName from './get-month-name.js'
 	import getDaysOfTheWeek from './get-days-of-the-week.js'
-	import getMonthDaysArrays from './get-month-days-arrays.js'
+	import calendarize from 'calendarize'
 	import { datesMatch, dateGte, dateLte, dateGt, dateLt } from './date-object.js'
 	import mouseEventShouldBeReactedTo from 'click-should-be-intercepted-for-navigation'
 
@@ -26,6 +26,8 @@
 		year: 2020,
 		month: 1
 	}
+
+	const getMonthDaysArrays = (year, month) => calendarize(new Date(year, month - 1))
 
 	$: visibleWeeks = getMonthDaysArrays(visibleMonth.year, visibleMonth.month).map(
 		weeks => weeks.map(
