@@ -1,7 +1,7 @@
 {
   "name": "@equipmentshare/date-range-input",
   "description": "A user interface for inputting date ranges",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "engines": {
     "node": ">=13"
   },
