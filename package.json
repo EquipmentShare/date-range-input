@@ -15,9 +15,10 @@
   },
   "scripts": {
     "pre-build": "foundation --targetDirectory=src/css",
-    "build": "npm-run-all --print-label pre-build --parallel build:*",
+    "build": "npm-run-all --print-label --parallel pre-build build-css --parallel build:*",
     "build:js": "rollup -c",
     "build-dev": "cross-env ENVIRONMENT=dev npm run build",
+    "build-css": "cross-env OUTPUT_CSS_FILE=component.css npm run build:js",
     "dev:serve": "live-server public",
     "dev:watch:js": "npm run build:js -- -w",
     "dev": "npm-run-all --print-label pre-build --parallel dev:**",

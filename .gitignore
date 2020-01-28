@@ -3,3 +3,4 @@ node_modules
 bundle.*
 public/build
 src/css
+component.css*

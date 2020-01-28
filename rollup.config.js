@@ -15,6 +15,7 @@ const stylePreprocessor = sveltePreprocessPostcss({
 
 const customElement = process.env.OUTPUT === "custom-element"
 const devMode = !!process.env.ROLLUP_WATCH || process.env.ENVIRONMENT === 'dev'
+const outputCssFile = process.env.OUTPUT_CSS_FILE || false
 const testApp = devMode && !customElement
 
 const outputFileName = customElement
@@ -24,6 +25,13 @@ const outputFileName = customElement
 const outputPath = devMode
 	? "./public/build/" + outputFileName
 	: "./" + outputFileName
+
+const extraSvelteOptions = outputCssFile
+	? {
+		cssOutputFilename: outputCssFile,
+		css: css => css.write(outputCssFile),
+	}
+	: {}
 
 const componentConfig = {
 	input: "src/DateRangeInput.svelte",
@@ -47,7 +55,8 @@ const componentConfig = {
 				}
 
 				handler(warning)
-			}
+			},
+			...extraSvelteOptions
 		}),
 		resolve({
 			browser: true,
