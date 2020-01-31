@@ -65,6 +65,11 @@
 		day,
 	})
 
+	const stopPropagationAndThen = fn => event => {
+		event.stopPropagation()
+		return fn(event)
+	}
+
 	const ifMouseEventShouldBeReactedTo = thenDo => event => {
 		if (mouseEventShouldBeReactedTo(event)) {
 			thenDo(event)
@@ -79,10 +84,10 @@
 			{getMonthName(visibleMonth.month)} {visibleMonth.year}
 		</span>
 		<span style="display: flex;">
-			<button type=button on:click={() => switchMonth(-1)}>
+			<button type=button on:click={stopPropagationAndThen(() => switchMonth(-1))}>
 				❮
 			</button>
-			<button type=button on:click={() => switchMonth(1)}>
+			<button type=button on:click={stopPropagationAndThen(() => switchMonth(1))}>
 				❯
 			</button>
 		</span>
@@ -111,7 +116,9 @@
 								draggable=false
 								data-selected={dateIsVisiblySelected(visibleDate)}
 								on:click={ifMouseEventShouldBeReactedTo(
-									() => dispatchEvent('daySelected', visibleDate)
+									stopPropagationAndThen(
+										() => dispatchEvent('daySelected', visibleDate)
+									)
 								)}
 								on:mouseover={ifMouseEventShouldBeReactedTo(
 									() => dispatchEvent('mouseoverDate', visibleDate)
