@@ -7,6 +7,17 @@
 	const toIsoDate = date => `${date.year}-${pad2(date.month)}-${pad2(date.day)}`
 
 	let changes = []
+
+	let start = { year: 2020, month: 1, day: 10 }
+	let end = { year: 2020, month: 1, day: 20 }
+
+	let visibleStartMonth = { year: 2020, month: 1 }
+	let visibleEndMonth = { year: 2020, month: 2 }
+
+	const changeDate = () => {
+		visibleStartMonth = start = { year: 2019, month: 1, day: 10 }
+		visibleEndMonth = end = { year: 2019, month: 2, day: 20 }
+	}
 </script>
 
 <style>
@@ -16,10 +27,12 @@
 </style>
 
 <div class="page">
+	<button on:click={changeDate}>Manually control the date from the outside</button>
 	<DateRangeInput
-		start={ { year: 2020, month: 1, day: 10 } }
-		end={ { year: 2020, month: 1, day: 20 } }
-		visibleEndMonth={ { year: 2020, month: 2 } }
+		bind:start
+		bind:end
+		{visibleStartMonth}
+		{visibleEndMonth}
 		on:change={ ({ detail: range }) => changes = [...changes, range] }
 	>
 	</DateRangeInput>
