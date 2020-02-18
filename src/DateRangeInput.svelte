@@ -19,7 +19,24 @@
 		day: 15
 	}
 
-	$: dispatch('change', { start, end })
+	let userSelectedStart = null
+	let userSelectedEnd = null
+
+	$: {
+		if (userSelectedStart || userSelectedEnd) {
+			if (userSelectedStart) {
+				start = userSelectedStart
+				userSelectedStart = null
+			}
+
+			if (userSelectedEnd) {
+				end = userSelectedEnd
+				userSelectedEnd = null
+			}
+
+			dispatch('change', { start, end })
+		}
+	}
 
 	let startMouseDown = null
 	let endMouseDown = null
@@ -90,28 +107,28 @@
 		const wasAClickOnEnd = endMouseDown && datesMatch(date, endMouseDown)
 
 		if (mouseWasDown && !wasAClickOnStart && !wasAClickOnEnd) {
-			start = displayRange.start
-			end = displayRange.end
+			userSelectedStart = displayRange.start
+			userSelectedEnd = displayRange.end
 		}
 	}
 
 	const onStartDaySelected = ({ detail: date }) => {
 		clearAnyMouseDown()
 		if (dateGt(date, end)) {
-			start = end
-			end = date
+			userSelectedStart = end
+			userSelectedEnd = date
 		} else if (!datesMatch(date, start)) {
-			start = date
+			userSelectedStart = date
 		}
 	}
 
 	const onEndDaySelected = ({ detail: date }) => {
 		clearAnyMouseDown()
 		if (dateLt(date, start)) {
-			end = start
-			start = date
+			userSelectedEnd = start
+			userSelectedStart = date
 		} else if (!datesMatch(date, end)) {
-			end = date
+			userSelectedEnd = date
 		}
 	}
 </script>
