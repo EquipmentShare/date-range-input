@@ -14,14 +14,13 @@
     "url": "git@gitlab.internal.equipmentshare.com:time-tracking/date-range-input.git"
   },
   "scripts": {
-    "pre-build": "foundation --targetDirectory=src/css",
-    "build": "npm-run-all --print-label --parallel pre-build build-css --parallel build:*",
+    "build": "run-s --print-label build-css build:js",
     "build:js": "rollup -c",
     "build-dev": "cross-env ENVIRONMENT=dev npm run build",
     "build-css": "cross-env OUTPUT_CSS_FILE=component.css npm run build:js",
     "dev:serve": "live-server public",
     "dev:watch:js": "npm run build:js -- -w",
-    "dev": "npm-run-all --print-label pre-build --parallel dev:**",
+    "dev": "run-p --print-label dev:**",
     "autoformat": "eslint rollup.config.js src/ --fix --ext .js,.svelte",
     "lint": "eslint rollup.config.js src/ --ext .js,.svelte",
     "test": "glob-module-file --pattern=\"src/**/*.test.js\" --importStar --format=es | node --input-type=module"
