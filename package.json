@@ -27,8 +27,6 @@
     "test": "glob-module-file --pattern=\"src/**/*.test.js\" --importStar --format=es | node --input-type=module"
   },
   "devDependencies": {
-    "@equipmentshare/es-foundation": "^5.0.1",
-    "@equipmentshare/eslint-config-es-base-js": "^1.0.0",
     "calendarize": "^1.1.0",
     "click-should-be-intercepted-for-navigation": "^1.0.0",
     "cpy-cli": "^2.0.0",
