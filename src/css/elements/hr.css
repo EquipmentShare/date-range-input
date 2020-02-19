@@ -1,0 +1,8 @@
+@import "../tokens/size.css";
+@import "../tokens/color.css";
+
+.hr {
+	border: none;
+	border-top: 1px solid var(--color-theme-gray-lighter);
+	margin: var(--size-half) 0;
+}

@@ -1,0 +1,26 @@
+@import "../tokens/color.css";
+@import "../tokens/size.css";
+@import "../tokens/text.css";
+
+.input[type=date], .input[type=time], .input[type=number], .input[type=email], .input[type=password], .input[type=search], .input[type=tel], .input[type=text], .input[type=url] {
+	--border-color: var(--color-theme-gray-lighter);
+
+	border: var(--border-width) solid var(--border-color);
+	border-radius: var(--border-radius);
+
+	padding: var(--size-half) var(--size-base);
+	font-family: var(--text-font-family);
+	font-size: var(--text-font-size-base);
+	line-height: var(--text-font-size-base);
+	height: var(--control-height);
+}
+
+.input[type=date]:focus, .input[type=time]:focus, .input[type=number]:focus, .input[type=email]:focus, .input[type=password]:focus, .input[type=search]:focus, .input[type=tel]:focus, .input[type=text]:focus, .input[type=url]:focus {
+	box-shadow: 0 0 0 var(--size-quarter) var(--color-theme-gray-lightest);
+	outline: none;
+}
+
+.input[type=date]:invalid, .input[type=time]:invalid, .input[type=number]:invalid, .input[type=email]:invalid, .input[type=password]:invalid, .input[type=search]:invalid, .input[type=tel]:invalid, .input[type=text]:invalid, .input[type=url]:invalid {
+	box-shadow: 0 0 0 var(--size-quarter) var(--color-theme-red);
+	outline: none;
+}

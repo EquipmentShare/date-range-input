@@ -1,0 +1,9 @@
+@import './size.css';
+
+:root, :host {
+	--text-font-size-small: calc(var(--size-base) * .75);
+	--text-font-size-base: var(--size-base);
+	--text-font-family: Roboto, sans-serif;
+	--text-font-weight-base: 400;
+	--text-font-weight-bold: 700;
+}

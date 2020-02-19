@@ -1,0 +1,9 @@
+@import '../tokens/color.css';
+@import '../tokens/size.css';
+
+.header {
+	background-color: var(--color-theme-white);
+	padding: var(--size-base);
+	border-bottom: 1px solid var(--color-theme-mute);
+	box-shadow: 1px 1px 1px var(--color-theme-mute);
+}

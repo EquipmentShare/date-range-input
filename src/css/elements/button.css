@@ -1,0 +1,42 @@
+@import "../tokens/text.css";
+@import "../tokens/color.css";
+@import "../tokens/size.css";
+
+.button.primary {
+	--color: var(--color-theme-white);
+	--background-color: var(--color-ui-primary);
+}
+
+.button[disabled]{
+	--border-color: var(--color-theme-gray-lighter);
+	--color: var(--color-theme-gray-lighter);
+}
+
+.button.primary[disabled] {
+	--color: var(--color-theme-offwhite);
+	--background-color: var(--color-theme-gray-lighter);
+}
+
+.button {
+	--color: var(--color-ui-primary);
+	--border-color: var(--color-ui-primary);
+	--background-color: var(--color-theme-white);
+
+	color: var(--color);
+	background-color: var(--background-color);
+	border: var(--border-width) solid var(--border-color);
+	border-radius: var(--border-radius);
+	display: flex;
+	align-items: center;
+	padding: var(--size-half) var(--size-base);
+	white-space: nowrap;
+	font-family: var(--text-font-family);
+	font-size: var(--text-font-size-base);
+	line-height: var(--text-font-size-base);
+	height: var(--control-height);
+}
+
+.button:focus {
+	box-shadow: 0 0 0 var(--size-quarter) var(--color-theme-gray-lightest);
+	outline: none;
+}

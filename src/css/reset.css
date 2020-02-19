@@ -1,0 +1,16 @@
+/* @import "https://fonts.googleapis.com/css?family=Roboto:400,700"; */
+@import './tokens/text.css';
+
+* {
+	box-sizing: border-box;
+}
+
+html, :host {
+	font-size: 16px;
+	font-weight: 400;
+}
+
+body, :host {
+	font-family: var(--text-font-family);
+	font-size: var(--text-font-size-base);
+}
