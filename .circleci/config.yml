@@ -1,7 +1,6 @@
 version: 2
 
 defaults: &defaults
-  working_directory: ~/repo
   docker:
     - image: circleci/node:13-browsers
 
@@ -19,7 +18,7 @@ git_save_cache: &git_save_cache
       - ".git"
 
 jobs:
-  install:
+  test_and_build:
     <<: *defaults
     steps:
       - *git_restore_cache
@@ -28,47 +27,37 @@ jobs:
       - run:
           name: Install
           command: npm ci
-      - persist_to_workspace:
-          root: ~/repo
-          paths:
-            - node_modules
-  test_and_build:
-    <<: *defaults
-    steps:
-      - *git_restore_cache
-      - checkout
-      - *git_save_cache
-      - attach_workspace:
-          at: ~/repo
       - run:
           name: Test
           command: npm test
       - run:
           name: Build
           command: npm run build
-  deploy_to_npm:
+  test_and_build_and_deploy_to_npm:
     <<: *defaults
     steps:
       - *git_restore_cache
       - checkout
       - *git_save_cache
-      - attach_workspace:
-          at: ~/repo
+      - run:
+          name: Install
+          command: npm ci
+      - run:
+          name: Build
+          command: npm run build
       - run:
           name: Deploy to npm
           command: npm publish --access public
 
 workflows:
   version: 2
-  test_and_build_and_deploy:
+  ci:
     jobs:
-      - install
       - test_and_build:
-          requires:
-            - install
-      - deploy_to_npm:
-          requires:
-            - test_and_build
+          filters:
+            branches:
+              ignore: npm
+      - test_and_build_and_deploy_to_npm:
           filters:
             branches:
               only: npm
