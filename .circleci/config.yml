@@ -1,0 +1,83 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:13-browsers
+
+git_restore_cache: &git_restore_cache
+  restore_cache:
+    keys:
+      - source-v1-{{ .Branch }}-{{ .Revision }}
+      - source-v1-{{ .Branch }}-
+      - source-v1-
+
+git_save_cache: &git_save_cache
+  save_cache:
+    key: source-v1-{{ .Branch }}-{{ .Revision }}
+    paths:
+      - ".git"
+
+jobs:
+  install:
+    <<: *defaults
+    steps:
+      - *git_restore_cache
+      - checkout
+      - *git_save_cache
+      - run:
+          name: Install
+          command: npm ci
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - node_modules
+  test_and_build:
+    <<: *defaults
+    steps:
+      - *git_restore_cache
+      - checkout
+      - *git_save_cache
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Test
+          command: npm test
+      - run:
+          name: Build
+          command: npm run build
+  deploy_to_npm:
+    <<: *defaults
+    steps:
+      - *git_restore_cache
+      - checkout
+      - *git_save_cache
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Deploy to npm
+          command: npm publish --access public
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - install
+      - test_and_build:
+          requires:
+            - install
+          filters:
+            branches:
+              ignore: npm
+  install_and_test_and_deploy:
+    jobs:
+      - install
+      - test_and_build:
+          requires:
+            - install
+      - deploy_to_npm:
+          requires:
+            - test_and_build
+          filters:
+            branches:
+              only: npm
