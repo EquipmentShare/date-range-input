@@ -1,0 +1,24 @@
+@import "../tokens/size.css";
+@import "../tokens/text.css";
+
+.label {
+	line-height: var(--text-font-size-base);
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	padding-top: var(--size-base);
+}
+
+.label.short {
+	padding-top: 0;
+}
+
+.label > * {
+	/*
+		This adds separation above the control to put a bit of space between it and
+		the .label text – the amount of the space is calculated so that between the
+		non-short padding above and the text size, the .label text will be given as much
+		vertical space as the --control-height
+	*/
+	margin-top: calc(var(--control-height) - var(--text-font-size-base) - var(--size-base));
+}

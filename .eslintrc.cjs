@@ -8,7 +8,7 @@ module.exports = {
 		"svelte3"
 	],
 	"extends": [
-		"@equipmentshare/es-base-js"
+		"./es-internal/eslint-config-es-base-js"
 	],
 	"parserOptions": {
 		"ecmaVersion": 2019,

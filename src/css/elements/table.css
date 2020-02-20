@@ -1,0 +1,29 @@
+@import '../tokens/color.css';
+@import '../tokens/size.css';
+
+.table {
+	border-collapse: collapse;
+	color: var(--color-brand-primary);
+	width: 100%;
+}
+
+.table th, .table td {
+	padding: var(--size-half);
+	border: 1px solid var(--color-theme-mute);
+	white-space: nowrap;
+}
+
+.table th {
+	text-transform: uppercase;
+	text-align: left;
+	background-color: var(--color-theme-offwhite);
+}
+
+.table th.numeric, .table td.numeric {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+.table tr:hover {
+	background-color: var(--color-theme-offwhite);
+}

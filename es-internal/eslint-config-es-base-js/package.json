@@ -1,0 +1,49 @@
+{
+  "_from": "@equipmentshare/eslint-config-es-base-js@1",
+  "_id": "@equipmentshare/eslint-config-es-base-js@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-/z2YAtF6MRUoAkeWLABtcdiLpEiNHmznZ+e0ivvf+GC6j4SDgcvIhSncNu8A0G3NsRA1fXTdeeXsqIHwjS6Fuw==",
+  "_location": "/@equipmentshare/eslint-config-es-base-js",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@equipmentshare/eslint-config-es-base-js@1",
+    "name": "@equipmentshare/eslint-config-es-base-js",
+    "escapedName": "@equipmentshare%2feslint-config-es-base-js",
+    "scope": "@equipmentshare",
+    "rawSpec": "1",
+    "saveSpec": null,
+    "fetchSpec": "1"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "http://npm.internal.equipmentshare.com/@equipmentshare%2feslint-config-es-base-js/-/eslint-config-es-base-js-1.0.0.tgz",
+  "_shasum": "ed3df7b8bf0782b3f96072b78555e2e4fff15c1b",
+  "_spec": "@equipmentshare/eslint-config-es-base-js@1",
+  "_where": "/Users/josh/code/date-range-input",
+  "author": "",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "A starting point for new JS package ESLint configurations at EquipmentShare.",
+  "devDependencies": {
+    "eslint": "^6.6.0"
+  },
+  "homepage": "https://gitlab.internal.equipmentshare.com/fe-platform/eslint-config-es-base-js",
+  "keywords": [
+    "eslint"
+  ],
+  "license": "UNLICENSED",
+  "main": "index.eslintrc.js",
+  "name": "@equipmentshare/eslint-config-es-base-js",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.internal.equipmentshare.com:es-frontend/eslint-config-es-base-js.git"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .js,.ts",
+    "test": "echo \"Error: no test specified :-x\" && exit 0"
+  },
+  "version": "1.0.0"
+}

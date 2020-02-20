@@ -1,0 +1,10 @@
+@import '../tokens/color.css';
+@import '../tokens/size.css';
+
+.section {
+	background-color: var(--color-theme-white);
+	padding: var(--size-base);
+	border: 1px solid var(--color-theme-mute);
+	border-radius: 2px;
+	box-shadow: 1px 1px 1px var(--color-theme-mute);
+}

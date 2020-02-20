@@ -1,0 +1,30 @@
+:root, :host {
+	--color-brand-primary: #616161;
+	--color-brand-secondary: #424242;
+
+	--color-ui-primary: #00adee;
+	--color-ui-es-orange: #f6911e;
+
+	--color-theme-default: #616161;
+	--color-theme-white: #ffffff;
+	--color-theme-offwhite: #fafafa;
+	--color-theme-gray: #9e9e9e;
+	--color-theme-gray-lighter: #bdbdbd;
+	--color-theme-gray-lightest: #d0d0d0;
+	--color-theme-charcoal: #232323;
+	--color-theme-black: #000000;
+	--color-theme-mute: #e0e0e0;
+	--color-theme-green: #63a83c;
+	--color-theme-red: #dd1a22;
+	--color-theme-purple: #7e4ceb;
+	--color-theme-orange: #f6911e;
+
+	--section-container-background-color: var(--color-theme-offwhite);
+}
+
+/*
+At some point we need token names that imply how the colors should be used.
+
+Ideas: "error" and "cancel" for how we use red now
+"success" and "valid" for green
+*/
