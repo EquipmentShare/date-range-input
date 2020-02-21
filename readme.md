@@ -4,7 +4,7 @@ A user interface for inputting date ranges.
 
 **[Demo](https://equipmentshare.github.io/date-range-input/)**
 
-<img src="./demo.gif" alt="Animated gif showing example usage" width="425.5px" height="202px">
+<img src="./demo.gif" width="425.5px" height="202px">
 
 ## Install
 
