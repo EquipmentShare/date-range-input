@@ -8,10 +8,10 @@
   "type": "module",
   "main": "./bundle.js",
   "svelte": "src/DateRangeInput.svelte",
-  "homepage": "https://gitlab.internal.equipmentshare.com/time-tracking/date-range-input",
+  "homepage": "https://github.com/EquipmentShare/date-range-input/#date-range-input",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.internal.equipmentshare.com:time-tracking/date-range-input.git"
+    "url": "git@github.com:EquipmentShare/date-range-input.git"
   },
   "scripts": {
     "build": "run-s --print-label build-css build:js",
