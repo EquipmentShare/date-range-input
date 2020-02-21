@@ -2,7 +2,7 @@
 
 A user interface for inputting date ranges.
 
-**[Demo](http://time-tracking.pages.internal.equipmentshare.com/date-range-input/)**
+**[Demo](https://equipmentshare.github.io/date-range-input/)**
 
 <img src="./demo.gif" alt="Animated gif showing example usage" width="425.5px" height="202px">
 
