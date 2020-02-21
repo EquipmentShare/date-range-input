@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+
+	<title>date-range-input test</title>
+
+	<link rel='icon' type='image/png' href='./favicon.png'>
+
+	<script defer src='./build/bundle.js'></script>
+	<script type=module src='./build/custom-element.js'></script>
+</head>
+<body>
+	<h1>Date range picker</h1>
+
+	<p>
+		<a href="https://github.com/EquipmentShare/date-range-input/">Source</a>
+	</p>
+
+	<label>
+		Suppositions:
+		<ul>
+			<li>Clicking and dragging creates a new range rather than modifying the existing range</li>
+			<li>Needing to select a single day range is a very uncommon use case</li>
+			<li>The left calendar is the "start" and the right calendar is the "end"</li>
+			<li>
+				Users changing the "end" calendar to show a month before the "start" calendar will not happen very often
+				<ul>
+					<li>Trying to prevent it from happening would make the picker frustrating to people who were in the middle of adjusting both calendars</li>
+					<li>it's more important that the picker behave consistently than it is to try to make the UX super-intuitive in that state</li>
+				</ul>
+			</li>
+		</ul>
+	</label>
+
+	<h2>JS interface</h2>
+	<div id="test-app-target"></div>
+</body>
+</html>
