@@ -1,5 +1,5 @@
 node_modules
 
-bundle.*
+/bundle.*
 public/build
 component.css*
