@@ -1,13 +1,15 @@
 :root, :host {
-	--size-quarter: .25rem;
-	--size-half: .50rem;
-	--size-base: 1rem;
-	--size-double: 2rem;
+	--size-unit: 4px;
+
+	--size-quarter: var(--size-unit);
+	--size-half: calc(var(--size-unit) * 2);
+	--size-base: calc(var(--size-unit) * 4);
+	--size-double: calc(var(--size-unit) * 8);
 
 	--border-width: 1px;
 	--border-radius: var(--size-quarter);
 
 	--size-default-spacing: var(--size-half);
 
-	--control-height: 2.25rem;
+	--control-height: calc(var(--size-unit) * 9);
 }
